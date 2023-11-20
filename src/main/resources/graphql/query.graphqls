@@ -1,0 +1,15 @@
+type Performance{
+    id: String
+    name: String
+    date: String
+
+}
+
+type Query{
+    getAllPerformances:[Performance!]!
+    getPerformanceById(id:String!):Performance
+}
+
+type Mutation{
+    createPerformance(name: String!, date: String!):Performance
+}
