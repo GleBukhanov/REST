@@ -11,12 +11,12 @@ import java.util.Map;
 
 public interface PerformanceService {
     void createPerformance(InputPerformanceDTO inputPerformanceDTO);
-    Performance findByName(String name);
-    List<Performance> getPerformanceByDate(Date date);
-    List<Performance> getAllPerformances();
-    Performance getPerformanceById(String id);
-    boolean updatePerformanceDate(PerformanceDTO performanceDTO);
-    boolean deletePerformanceById(PerformanceDTO performanceDTO);
-    Map<String, Object> getAllPerformancesHal(int index, int count);
+//    Performance findByName(String name);
+//    List<Performance> getPerformanceByDate(Date date);
+//    List<Performance> getAllPerformances();
+//    Performance getPerformanceById(String id);
+//    boolean updatePerformanceDate(PerformanceDTO performanceDTO);
+//    boolean deletePerformanceById(PerformanceDTO performanceDTO);
+//    Map<String, Object> getAllPerformancesHal(int index, int count);
 
 }

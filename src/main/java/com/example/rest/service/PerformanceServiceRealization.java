@@ -50,62 +50,62 @@ public class PerformanceServiceRealization implements PerformanceService {
             }
         }
     }
-
-    @Override
-    public List<Performance> getAllPerformances() {
-        return this.performanceRepository.findAll();
-    }
-
-    @Override
-    public Performance findByName(String name) {
-        return this.performanceRepository.findByName(name);
-    }
-
-    @Override
-    public Performance getPerformanceById(String id) {
-        return this.performanceRepository.findPerformanceById(id);
-    }
-
-    @Override
-    public List<Performance> getPerformanceByDate(Date date) {
-        return this.performanceRepository.findByDate(date);
-    }
-
-    @Override
-    public boolean updatePerformanceDate(PerformanceDTO performanceDTO) {
-        if (!validationUtil.isValid(performanceDTO)) {
-            this.validationUtil.violations(performanceDTO).stream().map(ConstraintViolation::getMessage).forEach(System.out::println);
-        }
-            Performance performance=performanceRepository.findPerformanceById(performanceDTO.getId());
-            performance.setDate(performanceDTO.getDate());
-            this.performanceRepository.saveAndFlush(performance);
-            return true;
-
-    }
-    @Override
-    public boolean deletePerformanceById(PerformanceDTO performanceDTO) {
-        this.performanceRepository.deleteById(performanceDTO.getId());
-        return true;
-    }
-
-    @Override
-    public Map<String, Object> getAllPerformancesHal(int index, int count) {
-        Page<PerformanceDTO> performancePage = getAllPerformances(index, count);
-        String baseUrl = "/performances/hal";
-        int pageNumber = performancePage.getNumber();
-        int pageSize = performancePage.getSize();
-        int total = performancePage.getTotalPages();
-
-        List<Map<String, Object>> embeddedPerformances = performancePage.getContent().stream()
-                .map(this::createPerformanceResource)
-                .toList();
-
-        Map<String, Object> response = new LinkedHashMap<>();
-        response.put("_embedded", Collections.singletonMap("performances", embeddedPerformances));
-        response.put("_links", HAL.paginateAsDictionary(baseUrl, pageNumber, pageSize, total));
-
-        return response;
-    }
+//
+//    @Override
+//    public List<Performance> getAllPerformances() {
+//        return this.performanceRepository.findAll();
+//    }
+//
+//    @Override
+//    public Performance findByName(String name) {
+//        return this.performanceRepository.findByName(name);
+//    }
+//
+//    @Override
+//    public Performance getPerformanceById(String id) {
+//        return this.performanceRepository.findPerformanceById(id);
+//    }
+//
+//    @Override
+//    public List<Performance> getPerformanceByDate(Date date) {
+//        return this.performanceRepository.findByDate(date);
+//    }
+//
+//    @Override
+//    public boolean updatePerformanceDate(PerformanceDTO performanceDTO) {
+//        if (!validationUtil.isValid(performanceDTO)) {
+//            this.validationUtil.violations(performanceDTO).stream().map(ConstraintViolation::getMessage).forEach(System.out::println);
+//        }
+//            Performance performance=performanceRepository.findPerformanceById(performanceDTO.getId());
+//            performance.setDate(performanceDTO.getDate());
+//            this.performanceRepository.saveAndFlush(performance);
+//            return true;
+//
+//    }
+//    @Override
+//    public boolean deletePerformanceById(PerformanceDTO performanceDTO) {
+//        this.performanceRepository.deleteById(performanceDTO.getId());
+//        return true;
+//    }
+//
+//    @Override
+//    public Map<String, Object> getAllPerformancesHal(int index, int count) {
+//        Page<PerformanceDTO> performancePage = getAllPerformances(index, count);
+//        String baseUrl = "/performances/hal";
+//        int pageNumber = performancePage.getNumber();
+//        int pageSize = performancePage.getSize();
+//        int total = performancePage.getTotalPages();
+//
+//        List<Map<String, Object>> embeddedPerformances = performancePage.getContent().stream()
+//                .map(this::createPerformanceResource)
+//                .toList();
+//
+//        Map<String, Object> response = new LinkedHashMap<>();
+//        response.put("_embedded", Collections.singletonMap("performances", embeddedPerformances));
+//        response.put("_links", HAL.paginateAsDictionary(baseUrl, pageNumber, pageSize, total));
+//
+//        return response;
+//    }
 
     private Map<String, Object> createPerformanceResource(PerformanceDTO performanceDTO) {
         Map<String, Object> racerResource = new LinkedHashMap<>();

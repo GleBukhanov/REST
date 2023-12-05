@@ -3,23 +3,32 @@ package com.example.rest.graphql;
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
 import com.example.rest.model.Performance;
 import com.example.rest.repository.PerformanceRepository;
-import com.example.rest.service.PerformanceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.rest.service.GraphQLPerformanceServiceRealization;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Component;
+import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import com.example.rest.model.Performance;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
+
 @Component
 public class PerformanceQuery implements GraphQLQueryResolver {
     PerformanceRepository repo;
-    public PerformanceQuery(PerformanceRepository repository) {
+    GraphQLPerformanceServiceRealization service;
+
+    public PerformanceQuery(PerformanceRepository repository, GraphQLPerformanceServiceRealization graphQLPerformanceServiceRealization) {
         this.repo = repository;
+        this.service = graphQLPerformanceServiceRealization;
     }
-
-    public Iterable<Performance> getAllPerformances() {
-        return repo.findAll();
+    @GetMapping
+    public List<Performance> getAllPerformances() {
+        return this.service.getAllPerformances();
     }
-
-    public Performance getPerformanceById(String id) {
-        return repo.findPerformanceById(id);
+    @GetMapping
+    public Optional<Performance> getPerformanceById(String id) {
+        return this.service.getPerformanceById(id);
     }
 }

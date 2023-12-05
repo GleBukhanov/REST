@@ -32,4 +32,7 @@ public class Performance extends BaseEntity  { //RepresentationModel<Performance
     public void setDate(Date date) {
         this.date = date;
     }
+    public String stringDate(){
+        return this.date.toString();
+    }
 }

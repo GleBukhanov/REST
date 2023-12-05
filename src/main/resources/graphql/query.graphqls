@@ -1,13 +1,13 @@
 type Performance{
-    id: String
-    name: String
+    id: ID!,
+    name: String,
     date: String
 
 }
 
 type Query{
-    getAllPerformances:[Performance!]!
-    getPerformanceById(id:String!):Performance
+    getAllPerformances:[Performance]
+    getPerformanceById(id:ID):Performance
 }
 
 type Mutation{

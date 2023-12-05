@@ -18,24 +18,5 @@ public class RestApplication {
         SpringApplication.run(RestApplication.class, args);
     }
 
-    @Bean
-    RuntimeWiringConfigurer runtimeWiringConfigurer(){
-        return new RuntimeWiringConfigurer() {
-            @Override
-            public void configure(RuntimeWiring.Builder builder) {
-                builder.type("Query", new UnaryOperator<TypeRuntimeWiring.Builder>() {
-                    @Override
-                    public TypeRuntimeWiring.Builder apply(TypeRuntimeWiring.Builder wiring) {
-                        return wiring
-                                .dataFetcher("performances", new DataFetcher() {
-                                    @Override
-                                    public Object get(DataFetchingEnvironment environment) throws Exception {
-                                        return null;
-                                    }
-                                })
-                    }
-                })
-            }
-        }
-    }
+
 }

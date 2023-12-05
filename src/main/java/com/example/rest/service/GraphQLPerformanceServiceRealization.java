@@ -2,42 +2,42 @@ package com.example.rest.service;
 
 import com.example.rest.model.Performance;
 import com.example.rest.repository.PerformanceRepository;
-import com.example.rest.validator.ValidationUtil;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
-public class GraphQLPerformanceServiceRealization implements GraphQLPerformanceService{
-    private final PerformanceRepository performanceRepository;
-    private final ModelMapper modelMapper;
-    @Autowired
-    public GraphQLPerformanceServiceRealization(PerformanceRepository performanceRepository,
-                                         ModelMapper modelMapper) {
+public class GraphQLPerformanceServiceRealization {
+    public PerformanceRepository performanceRepository;
+
+    public GraphQLPerformanceServiceRealization(PerformanceRepository performanceRepository) {
         this.performanceRepository = performanceRepository;
-        this.modelMapper = modelMapper;
+
     }
 
 
-    @Override
-    public Performance createPerformance(String name, Date date) {
-        final Performance performance=new Performance();
+    @Transactional
+    public Performance createPerformance(final String name, final Date date) {
+        Performance performance=new Performance();
         performance.setName(name);
         performance.setDate(date);
-        return performanceRepository.save(performance);
+        return performanceRepository.saveAndFlush(performance);
     }
 
-    @Override
+    @Transactional
     public List<Performance> getAllPerformances() {
         return performanceRepository.findAll();
     }
 
-    @Override
-    public Performance getPerformanceById(String id) {
-        return performanceRepository.getById(id);
+    @Transactional
+    public Optional<Performance> getPerformanceById(String id) {
+        return this.performanceRepository.findById(id);
     }
 
 }

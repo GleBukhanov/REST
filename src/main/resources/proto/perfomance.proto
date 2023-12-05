@@ -1,0 +1,15 @@
+syntax = "proto3";
+package com.example.rest.grpc;
+
+message Performance {
+  string id = 1;
+  string name = 2;
+  string date = 3;
+
+}
+message Response {
+  string str = 1;
+}
+service PerformanceService {
+  rpc getInfo (Performance) returns (Response) {}
+}
